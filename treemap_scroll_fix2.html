@@ -1,0 +1,276 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body,html{font-family:-apple-system,BlinkMacSystemFont,'Malgun Gothic','Apple SD Gothic Neo',sans-serif;}
+.panel{width:100%;max-width:400px;background:#fff;border:0.5px solid #e0e0e0;display:flex;flex-direction:column;height:700px;overflow:hidden;position:relative;}
+.topbar{flex-shrink:0;padding:14px 16px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between;background:#fff;z-index:30;}
+.topbar-addr{font-size:13px;color:#888;}
+.topbar-close{font-size:18px;color:#bbb;cursor:pointer;}
+.body{flex:1;overflow-y:auto;padding-bottom:60px;}
+.collage{width:100%;height:200px;display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:2px;background:#e8e8e8;overflow:hidden;}
+.ci{width:100%;height:100%;object-fit:cover;display:block;}
+.ci:nth-child(1){grid-row:1/3;}
+.ci-more{position:relative;overflow:hidden;}
+.ci-more img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.45);}
+.ci-more-lbl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:600;}
+.sticky-block{position:sticky;top:0;z-index:20;background:#fff;}
+.tree-hd{padding:12px 16px 12px;border-bottom:1px solid #f0f0f0;}
+.tree-num{font-size:12px;color:#aaa;margin-bottom:2px;}
+.tree-name{font-size:19px;font-weight:700;color:#222;margin-bottom:10px;}
+.tree-specs{display:flex;gap:20px;}
+.spec-item{display:flex;align-items:center;gap:5px;}
+.spec-val{font-size:13px;color:#666;}
+.tabbar{display:flex;border-bottom:1px solid #eee;overflow-x:auto;scrollbar-width:none;}
+.tabbar::-webkit-scrollbar{display:none;}
+.tab{font-size:12px;padding:10px 12px;cursor:pointer;color:#aaa;border-bottom:2px solid transparent;white-space:nowrap;flex-shrink:0;transition:color .15s;}
+.tab.on{color:#FF5A5F;border-bottom:2px solid #FF5A5F;font-weight:600;}
+.tab:hover:not(.on){color:#555;}
+.sec-block+.sec-block{border-top:8px solid #f5f5f5;}
+.sec-header{padding:18px 16px 0;}
+.sec-title-main{font-size:15px;font-weight:700;color:#222;}
+.sec-sub{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:.06em;padding:14px 16px 6px;}
+.row{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid #f8f8f8;}
+.row:last-child{border-bottom:none;}
+.rl{font-size:13px;color:#888;flex-shrink:0;padding-right:12px;}
+.rv{font-size:13px;color:#222;font-weight:500;text-align:right;}
+.rv-null{font-size:12px;color:#ccc;text-align:right;font-style:italic;}
+.rv-mono{font-size:11px;color:#aaa;font-family:monospace;text-align:right;word-break:break-all;}
+.rv-warn{font-size:13px;color:#FF5A5F;font-weight:500;text-align:right;}
+.rv-ok{font-size:13px;color:#2DB55D;font-weight:500;text-align:right;}
+.rv-amber{font-size:13px;color:#E8A000;font-weight:500;text-align:right;}
+.sec-end{height:16px;}
+.footer{position:absolute;bottom:0;left:0;right:0;padding:10px 16px;background:#fff;border-top:1px solid #eee;display:flex;gap:8px;}
+.btn-outline{flex:1;padding:11px 0;border:1.5px solid #FF5A5F;border-radius:6px;font-size:13px;font-weight:600;color:#FF5A5F;background:#fff;cursor:pointer;text-align:center;}
+.btn-fill{flex:2;padding:11px 0;border:none;border-radius:6px;font-size:13px;font-weight:600;color:#fff;background:#FF5A5F;cursor:pointer;text-align:center;}
+</style>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+<div class="panel">
+  <div class="topbar">
+    <span class="topbar-addr">16-공항-가-0073</span>
+    <span class="topbar-close">✕</span>
+  </div>
+
+  <div class="body" id="body">
+    <div class="collage">
+      <img class="ci" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Zelkova_serrata_1.jpg/640px-Zelkova_serrata_1.jpg" onerror="this.style.background='#8fbc8f';this.removeAttribute('src')" alt="">
+      <img class="ci" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Zelkova_serrata_bark.jpg/320px-Zelkova_serrata_bark.jpg" onerror="this.style.background='#7aad7a';this.removeAttribute('src')" alt="">
+      <img class="ci" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Zelkova_serrata_foliage.jpg/320px-Zelkova_serrata_foliage.jpg" onerror="this.style.background='#9ecf9e';this.removeAttribute('src')" alt="">
+      <img class="ci" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Zelkova_serrata_3.jpg/320px-Zelkova_serrata_3.jpg" onerror="this.style.background='#6aaa6a';this.removeAttribute('src')" alt="">
+      <div class="ci-more">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Zelkova_serrata_2.jpg/320px-Zelkova_serrata_2.jpg" onerror="this.style.background='#5d9e5d';this.removeAttribute('src')" alt="">
+        <div class="ci-more-lbl">+5</div>
+      </div>
+    </div>
+
+    <div class="sticky-block" id="sticky">
+      <div class="tree-hd">
+        <div class="tree-num">#1769</div>
+        <div class="tree-name">느티나무</div>
+        <div class="tree-specs">
+          <div class="spec-item">
+            <i data-lucide="tree-deciduous" style="width:14px;height:14px;color:#888;margin-right:-2px;"></i>
+            <i data-lucide="move-vertical" style="width:13px;height:13px;color:#888;margin-right:4px;"></i>
+            <span class="spec-val">8.84m</span>
+          </div>
+          <div class="spec-item">
+            <i data-lucide="diameter" style="width:14px;height:14px;color:#888;margin-right:4px;"></i>
+            <span class="spec-val">24cm</span>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar" id="tabbar">
+        <div class="tab on" data-target="sec-basic">기초</div>
+        <div class="tab" data-target="sec-size">규격</div>
+        <div class="tab" data-target="sec-health">건강</div>
+        <div class="tab" data-target="sec-struct">구조</div>
+        <div class="tab" data-target="sec-benefit">편익</div>
+        <div class="tab" data-target="sec-conflict">간섭</div>
+      </div>
+    </div>
+
+    <!-- 기초 -->
+    <div class="sec-block" id="sec-basic">
+      <div class="sec-header"><div class="sec-title-main">기초</div></div>
+      <div class="sec-sub">기본 정보</div>
+      <div class="row"><span class="rl">ID</span><span class="rv">1769</span></div>
+      <div class="row"><span class="rl">보통명</span><span class="rv">느티나무</span></div>
+      <div class="row"><span class="rl">학명</span><span class="rv" style="font-style:italic;font-size:12px;">Zelkova serrata</span></div>
+      <div class="row"><span class="rl">과명</span><span class="rv">Ulmaceae</span></div>
+      <div class="row"><span class="rl">품종</span><span class="rv-null">미기재</span></div>
+      <div class="row"><span class="rl">상태</span><span class="rv-ok">alive</span></div>
+      <div class="sec-sub">위치 정보</div>
+      <div class="row"><span class="rl">도로명 주소</span><span class="rv">삼백로</span></div>
+      <div class="row"><span class="rl">도로명</span><span class="rv">삼백로</span></div>
+      <div class="row"><span class="rl">가로수 도로명</span><span class="rv-null">미기재</span></div>
+      <div class="row"><span class="rl">공원명</span><span class="rv-null">미기재</span></div>
+      <div class="row"><span class="rl">좌표</span><span class="rv-mono">427100.92 / 4030760.14</span></div>
+      <div class="sec-sub">수집 정보</div>
+      <div class="row"><span class="rl">최종 스캔일</span><span class="rv">2025.07.14</span></div>
+      <div class="row"><span class="rl">최종 업데이트</span><span class="rv">2026.04.07</span></div>
+      <div class="sec-end"></div>
+    </div>
+
+    <!-- 규격 -->
+    <div class="sec-block" id="sec-size">
+      <div class="sec-header"><div class="sec-title-main">규격</div></div>
+      <div class="sec-sub">기본 규격</div>
+      <div class="row"><span class="rl">수고</span><span class="rv">8.84 m</span></div>
+      <div class="row"><span class="rl">흉고직경</span><span class="rv">24.0 cm</span></div>
+      <div class="row"><span class="rl">수관폭</span><span class="rv">8.84 m</span></div>
+      <div class="row"><span class="rl">수관고</span><span class="rv">6.63 m</span></div>
+      <div class="row"><span class="rl">엽면적 지수</span><span class="rv">7.83</span></div>
+      <div class="sec-sub">상세 규격</div>
+      <div class="row"><span class="rl">흉고둘레</span><span class="rv">56.0 cm</span></div>
+      <div class="row"><span class="rl">줄기 수</span><span class="rv">1개</span></div>
+      <div class="row"><span class="rl">지하고</span><span class="rv">2.21 m</span></div>
+      <div class="row"><span class="rl">수관 체적</span><span class="rv">258.25 m³</span></div>
+      <div class="row"><span class="rl">수평투영면적</span><span class="rv">61.91 m²</span></div>
+      <div class="row"><span class="rl">수관둘레</span><span class="rv-null">미측정</span></div>
+      <div class="row"><span class="rl">엽면적</span><span class="rv">484.49 m²</span></div>
+      <div class="row"><span class="rl">단위체적당 엽면적</span><span class="rv">1.88 m²/m³</span></div>
+      <div class="row"><span class="rl">엽생체량</span><span class="rv-null">미측정</span></div>
+      <div class="sec-end"></div>
+    </div>
+
+    <!-- 건강 -->
+    <div class="sec-block" id="sec-health">
+      <div class="sec-header"><div class="sec-title-main">건강</div></div>
+      <div class="sec-sub">생육 상태</div>
+      <div class="row"><span class="rl">추정 상태</span><span class="rv-amber">fair</span></div>
+      <div class="row"><span class="rl">활력 평가</span><span class="rv-ok">high</span></div>
+      <div class="row"><span class="rl">정규식생지수 (NDVI)</span><span class="rv-null">미측정</span></div>
+      <div class="row"><span class="rl">생수관율</span><span class="rv">75.02%</span></div>
+      <div class="row"><span class="rl">수관투명도</span><span class="rv">19.26%</span></div>
+      <div class="row"><span class="rl">가지마름</span><span class="rv">0%</span></div>
+      <div class="row"><span class="rl">고사율</span><span class="rv-null">미기재</span></div>
+      <div class="sec-end"></div>
+    </div>
+
+    <!-- 구조 -->
+    <div class="sec-block" id="sec-struct">
+      <div class="sec-header"><div class="sec-title-main">구조</div></div>
+      <div class="sec-sub">구조 평가</div>
+      <div class="row"><span class="rl">세장비</span><span class="rv">37.11</span></div>
+      <div class="row"><span class="rl">기울기</span><span class="rv">0.90°</span></div>
+      <div class="row"><span class="rl">기본풍속 안전계수</span><span class="rv-warn">0.72 (기준 ≥ 1.0)</span></div>
+      <div class="row"><span class="rl">임계 풍속</span><span class="rv">60 km/h</span></div>
+      <div class="row"><span class="rl">분지 형태</span><span class="rv-null">미기재</span></div>
+      <div class="row"><span class="rl">공동 우세지</span><span class="rv-null">미기재</span></div>
+      <div class="row"><span class="rl">매몰된 수피</span><span class="rv-null">미기재</span></div>
+      <div class="row"><span class="rl">전체 위험 등급</span><span class="rv-null">미평가</span></div>
+      <div class="row"><span class="rl">추가 점검 필요</span><span class="rv-ok">불필요</span></div>
+      <div class="sec-end"></div>
+    </div>
+
+    <!-- 편익 -->
+    <div class="sec-block" id="sec-benefit">
+      <div class="sec-header"><div class="sec-title-main">편익</div></div>
+      <div class="sec-sub">생태계서비스</div>
+      <div class="row"><span class="rl">탄소저장량</span><span class="rv">65.05 kg</span></div>
+      <div class="row"><span class="rl">총탄소격리량</span><span class="rv">19.29 kg/년</span></div>
+      <div class="row"><span class="rl">산소생산량</span><span class="rv">50.97 kg/년</span></div>
+      <div class="row"><span class="rl">O3 제거량</span><span class="rv">250.95 g/년</span></div>
+      <div class="row"><span class="rl">NO2 제거량</span><span class="rv">34.57 g/년</span></div>
+      <div class="row"><span class="rl">SO2 제거량</span><span class="rv">25.33 g/년</span></div>
+      <div class="row"><span class="rl">PM2.5 제거량</span><span class="rv">11.18 g/년</span></div>
+      <div class="row"><span class="rl">CO 제거량</span><span class="rv">6.01 g/년</span></div>
+      <div class="row"><span class="rl">잠재증발산량</span><span class="rv">15,260 L/년</span></div>
+      <div class="row"><span class="rl">우수 차단량</span><span class="rv">4,880 L/년</span></div>
+      <div class="row"><span class="rl">연간 증발량</span><span class="rv">4,880 L/년</span></div>
+      <div class="row"><span class="rl">증산량</span><span class="rv">2,680 L/년</span></div>
+      <div class="row"><span class="rl">우수유출저감량</span><span class="rv">180 L/년</span></div>
+      <div class="sec-sub">가치 평가</div>
+      <div class="row"><span class="rl">CAVAT</span><span class="rv">£ 1,955.52</span></div>
+      <div class="row"><span class="rl">Koch</span><span class="rv">€ 12,176.75</span></div>
+      <div class="row"><span class="rl">Rado</span><span class="rv">Ft 1,276.72</span></div>
+      <div class="row"><span class="rl">CTLA</span><span class="rv-null">미산정</span></div>
+      <div class="sec-end"></div>
+    </div>
+
+    <!-- 간섭 -->
+    <div class="sec-block" id="sec-conflict">
+      <div class="sec-header"><div class="sec-title-main">간섭</div></div>
+      <div class="sec-sub">간섭 현황</div>
+      <div class="row"><span class="rl">도로 간섭</span><span class="rv-warn">있음</span></div>
+      <div class="row"><span class="rl">상부 시설물</span><span class="rv-warn">있음</span></div>
+      <div class="row"><span class="rl">전선 간섭</span><span class="rv-ok">없음</span></div>
+      <div class="row"><span class="rl">건물 간섭</span><span class="rv-ok">없음</span></div>
+      <div class="row"><span class="rl">교통표지판 간섭</span><span class="rv-ok">없음</span></div>
+      <div class="row"><span class="rl">시야 확보 거리</span><span class="rv-null">미측정</span></div>
+      <div class="sec-sub">보호 구역</div>
+      <div class="row"><span class="rl">수목 보호 구역</span><span class="rv">반경 2.86 m</span></div>
+      <div class="row"><span class="rl">뿌리 보호 구역</span><span class="rv">반경 4.29 m</span></div>
+      <div class="row"><span class="rl">경쟁 지수</span><span class="rv">0%</span></div>
+      <div class="row"><span class="rl">생육 공간</span><span class="rv-null">미기재</span></div>
+      <div class="sec-end"></div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="btn-outline">점검 등록</div>
+    <div class="btn-fill">3D 보기</div>
+  </div>
+</div>
+
+<script>
+lucide.createIcons();
+
+const body = document.getElementById('body');
+const sticky = document.getElementById('sticky');
+const tabs = document.querySelectorAll('.tab');
+const sectionIds = ['sec-basic','sec-size','sec-health','sec-struct','sec-benefit','sec-conflict'];
+let isProgrammatic = false;
+
+// 탭 클릭 → 즉시 해당 섹션으로 이동
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = document.getElementById(tab.dataset.target);
+    if (!target) return;
+
+    isProgrammatic = true;
+    setActive(tab);
+
+    // sticky 높이를 매번 새로 측정
+    const stickyH = sticky.offsetHeight;
+
+    // body 기준 섹션의 절대 위치 계산
+    // = 현재 scrollTop + 섹션의 화면상 top위치 - body의 화면상 top위치 - sticky높이
+    const scrollTarget = body.scrollTop
+      + target.getBoundingClientRect().top
+      - body.getBoundingClientRect().top
+      - stickyH;
+
+    // 즉시 이동 (smooth 제거 → 정확도 우선)
+    body.scrollTop = scrollTarget;
+
+    setTimeout(() => { isProgrammatic = false; }, 100);
+  });
+});
+
+// 스크롤 → 탭 자동 활성화
+body.addEventListener('scroll', () => {
+  if (isProgrammatic) return;
+  const stickyH = sticky.offsetHeight;
+  const bodyTop = body.getBoundingClientRect().top;
+
+  let current = sectionIds[0];
+  sectionIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const elTop = el.getBoundingClientRect().top - bodyTop - stickyH;
+    if (elTop <= 2) current = id;
+  });
+
+  const activeTab = document.querySelector(`.tab[data-target="${current}"]`);
+  if (activeTab) setActive(activeTab);
+});
+
+function setActive(el) {
+  tabs.forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  el.scrollIntoView({ inline: 'nearest', block: 'nearest' });
+}
+</script>
